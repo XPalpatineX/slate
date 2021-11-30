@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  slate:
+    build: .
+    command: ${GETPROSPECT_ENV}
+    ports:
+      - "4567:4567"
+    volumes:
+      - "./source:/srv/slate/source"
+    networks: 
+      - default
+volumes:
+  data-volume:
+networks:
+  defaults:
+    external:
+      name: getprospect_bridge
