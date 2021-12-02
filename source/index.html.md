@@ -1,12 +1,14 @@
 ---
 title: GetProspect API v1.0
 language_tabs:
-  - javascript: Javascript
-language_clients:
-  - javascript: ""
+  - shell: Curl
+  - javascript: JavaScript
+  - python: Python
+  - php: PHP
+  - go: GO
 toc_footers: []
 includes: []
-search: false
+search: true
 highlight_theme: darkula
 headingLevel: 2
 
@@ -24,95 +26,8 @@ Base URLs:
 
 # Authentication
 
-- HTTP Authentication, scheme: bearer 
-
-<h1 id="getprospect-api-account">Account</h1>
-
-## AccountController_getWorkspaceLimits
-
-<a id="opIdAccountController_getWorkspaceLimits"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/user/account/workspace-limits',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/user/account/workspace-limits`
-
-<h3 id="accountcontroller_getworkspacelimits-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Apply coupon code
-
-<a id="opIdAccountController_findCompanyByDomain"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/user/account/apply/{couponCode}?couponCode=string',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/user/account/apply/{couponCode}`
-
-Apply coupon code
-
-<h3 id="apply-coupon-code-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|couponCode|query|string|true|Coupon code|
-
-<h3 id="apply-coupon-code-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
+* API Key (apiKey)
+    - Parameter Name: **apiKey**, in: header. 
 
 <h1 id="getprospect-api-lists">Lists</h1>
 
@@ -122,10 +37,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/lists \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists',
@@ -139,6 +61,74 @@ fetch('/api/v1/contacts/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -154,7 +144,7 @@ Get all contacts lists
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Create new list
@@ -163,13 +153,21 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/lists \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '{
   "name": "string"
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists',
@@ -183,6 +181,77 @@ fetch('/api/v1/contacts/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -212,7 +281,7 @@ Add new contact list
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Update lists deleted status
@@ -220,6 +289,14 @@ bearer
 <a id="opIdListController_updateListsStatuses"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH /api/v1/contacts/lists \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -231,7 +308,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists',
@@ -245,6 +322,77 @@ fetch('/api/v1/contacts/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.patch('/api/v1/contacts/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','/api/v1/contacts/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "/api/v1/contacts/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -278,7 +426,7 @@ Update multiple lists
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Permanently delete lists
@@ -287,13 +435,21 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X DELETE /api/v1/contacts/lists \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '[
   "string"
 ]';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists',
@@ -307,6 +463,77 @@ fetch('/api/v1/contacts/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.delete('/api/v1/contacts/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/api/v1/contacts/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/api/v1/contacts/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -336,7 +563,7 @@ Permanently delete multiple lists
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get count
@@ -345,11 +572,19 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/lists/lists-sizes \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '{}';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/lists-sizes',
@@ -363,6 +598,77 @@ fetch('/api/v1/contacts/lists/lists-sizes',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/lists/lists-sizes', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/lists/lists-sizes', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/lists/lists-sizes", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -390,7 +696,7 @@ Get lists count dy list id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Update list
@@ -399,13 +705,21 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X PATCH /api/v1/contacts/lists/{listId} \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '{
   "name": "string"
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/{listId}',
@@ -419,6 +733,77 @@ fetch('/api/v1/contacts/lists/{listId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.patch('/api/v1/contacts/lists/{listId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','/api/v1/contacts/lists/{listId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "/api/v1/contacts/lists/{listId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -449,7 +834,7 @@ Update list by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Add contacts to list
@@ -457,6 +842,14 @@ bearer
 <a id="opIdListController_addContactsToList"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/lists/{list}/add \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -466,7 +859,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/{list}/add',
@@ -480,6 +873,77 @@ fetch('/api/v1/contacts/lists/{list}/add',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/lists/{list}/add', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/lists/{list}/add', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/lists/{list}/add", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -512,7 +976,7 @@ Save new contacts to list
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Search contacts related to list
@@ -521,10 +985,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/lists/{list}/contacts/search \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/{list}/contacts/search',
@@ -538,6 +1009,74 @@ fetch('/api/v1/contacts/lists/{list}/contacts/search',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/lists/{list}/contacts/search', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/lists/{list}/contacts/search', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/lists/{list}/contacts/search", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -563,7 +1102,7 @@ Search contacts by filter related to list
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get list tree
@@ -572,10 +1111,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/lists/tree \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/tree',
@@ -592,6 +1138,74 @@ fetch('/api/v1/contacts/lists/tree',
 
 ```
 
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/lists/tree', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/lists/tree', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/lists/tree", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /api/v1/contacts/lists/tree`
 
 Get all lists tree
@@ -604,7 +1218,7 @@ Get all lists tree
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get paginated lists results
@@ -613,10 +1227,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/lists/paginated \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/paginated',
@@ -630,6 +1251,74 @@ fetch('/api/v1/contacts/lists/paginated',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/lists/paginated', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/lists/paginated', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/lists/paginated", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -654,7 +1343,7 @@ Get paginated lists results
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Search lists
@@ -663,13 +1352,21 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/lists/search \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '{
   "withParentFolder": true
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/lists/search',
@@ -683,6 +1380,77 @@ fetch('/api/v1/contacts/lists/search',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/lists/search', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/lists/search', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/lists/search", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -716,488 +1484,7 @@ Search lists by search type
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-properties">Properties</h1>
-
-## Get all properties
-
-<a id="opIdPropertiesController_findAll"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/properties`
-
-Get properties for all entity types
-
-<h3 id="get-all-properties-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Create property
-
-<a id="opIdPropertiesController_create"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "sourceType": "contact",
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "required": true
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/properties`
-
-Create a new property
-
-> Body parameter
-
-```json
-{
-  "sourceType": "contact",
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "required": true
-}
-```
-
-<h3 id="create-property-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreatePropertyDTO](#schemacreatepropertydto)|true|none|
-
-<h3 id="create-property-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Delete multiple properties
-
-<a id="opIdPropertiesController_deleteProperties"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties',
-{
-  method: 'DELETE',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`DELETE /api/v1/properties`
-
-Delete multiple properties by id
-
-<h3 id="delete-multiple-properties-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Bulk properties updating
-
-<a id="opIdPropertiesController_updateProperties"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "sourceType": "contacts"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties',
-{
-  method: 'PUT',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`PUT /api/v1/properties`
-
-Update multiple properties by id
-
-> Body parameter
-
-```json
-{
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "sourceType": "contacts"
-}
-```
-
-<h3 id="bulk-properties-updating-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[UpdatePropertyDto](#schemaupdatepropertydto)|true|none|
-
-<h3 id="bulk-properties-updating-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Delete property
-
-<a id="opIdPropertiesController_delete"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties/{propertyId}',
-{
-  method: 'DELETE',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`DELETE /api/v1/properties/{propertyId}`
-
-Delete property by id
-
-<h3 id="delete-property-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|propertyId|path|string|true|Property id|
-
-<h3 id="delete-property-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Update property
-
-<a id="opIdPropertiesController_update"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "sourceType": "contacts"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties/{propertyId}',
-{
-  method: 'PUT',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`PUT /api/v1/properties/{propertyId}`
-
-Update property by id
-
-> Body parameter
-
-```json
-{
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "sourceType": "contacts"
-}
-```
-
-<h3 id="update-property-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|propertyId|path|string|true|Property id|
-|body|body|[UpdatePropertyDto](#schemaupdatepropertydto)|true|none|
-
-<h3 id="update-property-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Create property group
-
-<a id="opIdPropertiesController_createGroup"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "name": "string",
-  "sourceType": "string"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties/groups',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/properties/groups`
-
-Add a new property group
-
-> Body parameter
-
-```json
-{
-  "name": "string",
-  "sourceType": "string"
-}
-```
-
-<h3 id="create-property-group-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreatePropertyGroupDto](#schemacreatepropertygroupdto)|true|none|
-
-<h3 id="create-property-group-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Get all property groups
-
-<a id="opIdPropertiesController_getAllGroups"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/properties/groups',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/properties/groups`
-
-Retrive all property groups
-
-<h3 id="get-all-property-groups-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 <h1 id="getprospect-api-contacts">Contacts</h1>
@@ -1208,11 +1495,29 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/contact \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
-const inputBody = '{}';
+const inputBody = '{
+  "properties": [
+    {
+      "property": "string",
+      "value": {}
+    }
+  ],
+  "listRelations": [
+    "string"
+  ]
+}';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/contact',
@@ -1229,6 +1534,77 @@ fetch('/api/v1/contacts/contact',
 
 ```
 
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/contact', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/contact', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/contact", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `POST /api/v1/contacts/contact`
 
 Create new contact
@@ -1236,7 +1612,17 @@ Create new contact
 > Body parameter
 
 ```json
-{}
+{
+  "properties": [
+    {
+      "property": "string",
+      "value": {}
+    }
+  ],
+  "listRelations": [
+    "string"
+  ]
+}
 ```
 
 <h3 id="create-contact-parameters">Parameters</h3>
@@ -1253,7 +1639,7 @@ Create new contact
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get single contact
@@ -1262,10 +1648,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/contact/{contactId} \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/contact/{contactId}',
@@ -1279,6 +1672,74 @@ fetch('/api/v1/contacts/contact/{contactId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/contact/{contactId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/contact/{contactId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/contact/{contactId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1300,7 +1761,7 @@ Get contact by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Update contact
@@ -1309,11 +1770,29 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X PATCH /api/v1/contacts/contact/{contactId} \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
-const inputBody = '{}';
+const inputBody = '{
+  "properties": [
+    {
+      "property": "string",
+      "value": {}
+    }
+  ],
+  "listRelations": [
+    "string"
+  ]
+}';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/contact/{contactId}',
@@ -1330,6 +1809,77 @@ fetch('/api/v1/contacts/contact/{contactId}',
 
 ```
 
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.patch('/api/v1/contacts/contact/{contactId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','/api/v1/contacts/contact/{contactId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "/api/v1/contacts/contact/{contactId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `PATCH /api/v1/contacts/contact/{contactId}`
 
 Update contact by id
@@ -1337,7 +1887,17 @@ Update contact by id
 > Body parameter
 
 ```json
-{}
+{
+  "properties": [
+    {
+      "property": "string",
+      "value": {}
+    }
+  ],
+  "listRelations": [
+    "string"
+  ]
+}
 ```
 
 <h3 id="update-contact-parameters">Parameters</h3>
@@ -1355,7 +1915,7 @@ Update contact by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Delete contact
@@ -1364,10 +1924,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X DELETE /api/v1/contacts/contact/{contactId} \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/contact/{contactId}',
@@ -1381,6 +1948,74 @@ fetch('/api/v1/contacts/contact/{contactId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.delete('/api/v1/contacts/contact/{contactId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/api/v1/contacts/contact/{contactId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/api/v1/contacts/contact/{contactId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1402,7 +2037,7 @@ Delete contact by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Search contacts
@@ -1410,6 +2045,14 @@ bearer
 <a id="opIdContactController_searchCount"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/contact/search/count \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -1429,11 +2072,12 @@ const inputBody = '{
     "properties": [
       "string"
     ]
-  }
+  },
+  "includeRelations": true
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/contact/search/count',
@@ -1447,6 +2091,77 @@ fetch('/api/v1/contacts/contact/search/count',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/contact/search/count', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/contact/search/count', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/contact/search/count", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1474,7 +2189,8 @@ Search contacts by filter
     "properties": [
       "string"
     ]
-  }
+  },
+  "includeRelations": true
 }
 ```
 
@@ -1496,7 +2212,7 @@ Search contacts by filter
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Add companies to contact
@@ -1504,6 +2220,14 @@ bearer
 <a id="opIdContactController_addCompaniesToContact"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/contact/{contactId}/companies?contactId=string \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -1518,7 +2242,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/contact/{contactId}/companies?contactId=string',
@@ -1532,6 +2256,79 @@ fetch('/api/v1/contacts/contact/{contactId}/companies?contactId=string',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/contact/{contactId}/companies', params={
+  'contactId': 'string'
+}, headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/contact/{contactId}/companies', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/contact/{contactId}/companies", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1569,7 +2366,7 @@ Create a new contact-company relations
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 <h1 id="getprospect-api-folders">Folders</h1>
@@ -1580,6 +2377,14 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/folders \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '{
   "name": "string",
@@ -1587,7 +2392,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders',
@@ -1601,6 +2406,77 @@ fetch('/api/v1/contacts/folders',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/folders', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/folders', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/folders", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1631,7 +2507,7 @@ Add new folder
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Delete folders
@@ -1639,6 +2515,14 @@ bearer
 <a id="opIdFolderController_delete"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE /api/v1/contacts/folders \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -1648,7 +2532,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders',
@@ -1662,6 +2546,77 @@ fetch('/api/v1/contacts/folders',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.delete('/api/v1/contacts/folders', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/api/v1/contacts/folders', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/api/v1/contacts/folders", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1693,7 +2648,7 @@ Delete multiple folders
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Update folder
@@ -1702,6 +2657,14 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X PATCH /api/v1/contacts/folders/{folderId} \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 const inputBody = '{
   "name": "string",
@@ -1709,7 +2672,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders/{folderId}',
@@ -1723,6 +2686,77 @@ fetch('/api/v1/contacts/folders/{folderId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.patch('/api/v1/contacts/folders/{folderId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','/api/v1/contacts/folders/{folderId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "/api/v1/contacts/folders/{folderId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1754,7 +2788,7 @@ Update folder by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get folders tree
@@ -1763,10 +2797,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/folders/tree \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders/tree',
@@ -1783,6 +2824,74 @@ fetch('/api/v1/contacts/folders/tree',
 
 ```
 
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/folders/tree', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/folders/tree', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/folders/tree", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
 `GET /api/v1/contacts/folders/tree`
 
 Get folders tree
@@ -1795,7 +2904,7 @@ Get folders tree
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Move lists to folder
@@ -1803,6 +2912,14 @@ bearer
 <a id="opIdFolderController_addList"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/folders/{folderId}/lists \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -1812,7 +2929,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders/{folderId}/lists',
@@ -1826,6 +2943,77 @@ fetch('/api/v1/contacts/folders/{folderId}/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/folders/{folderId}/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/folders/{folderId}/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/folders/{folderId}/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1858,7 +3046,7 @@ Move lists to folder
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get folder lists
@@ -1867,10 +3055,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/folders/{folderId}/lists \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders/{folderId}/lists',
@@ -1884,6 +3079,74 @@ fetch('/api/v1/contacts/folders/{folderId}/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/folders/{folderId}/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/folders/{folderId}/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/folders/{folderId}/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1905,7 +3168,7 @@ Retrive all lists related to folder
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Remove lists from folder
@@ -1913,6 +3176,14 @@ bearer
 <a id="opIdFolderController_removeListsFromFolder"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X DELETE /api/v1/contacts/folders/{folderId}/lists \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -1922,7 +3193,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/contacts/folders/{folderId}/lists',
@@ -1936,6 +3207,77 @@ fetch('/api/v1/contacts/folders/{folderId}/lists',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.delete('/api/v1/contacts/folders/{folderId}/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/api/v1/contacts/folders/{folderId}/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/api/v1/contacts/folders/{folderId}/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -1968,7 +3310,257 @@ Remove lists from folder
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
+</aside>
+
+## Move lists with folders to folder
+
+<a id="opIdFolderController_addListsWithFolders"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X POST /api/v1/contacts/folders/{folderId}/all \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
+
+```javascript
+const inputBody = '{}';
+const headers = {
+  'Content-Type':'application/json',
+  'apiKey':'API_KEY'
+};
+
+fetch('/api/v1/contacts/folders/{folderId}/all',
+{
+  method: 'POST',
+  body: inputBody,
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/contacts/folders/{folderId}/all', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/contacts/folders/{folderId}/all', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/contacts/folders/{folderId}/all", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`POST /api/v1/contacts/folders/{folderId}/all`
+
+Move lists with folders to folder
+
+> Body parameter
+
+```json
+{}
+```
+
+<h3 id="move-lists-with-folders-to-folder-parameters">Parameters</h3>
+
+|Name|In|Type|Required|Description|
+|---|---|---|---|---|
+|folderId|path|string|true|Folder id|
+|body|body|[AddListsWithFoldersDto](#schemaaddlistswithfoldersdto)|true|none|
+
+<h3 id="move-lists-with-folders-to-folder-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+apiKey
+</aside>
+
+## Get folders lists
+
+<a id="opIdFolderController_getFoldersLists"></a>
+
+> Code samples
+
+```shell
+# You can also use wget
+curl -X GET /api/v1/contacts/folders/lists \
+  -H 'apiKey: API_KEY'
+
+```
+
+```javascript
+
+const headers = {
+  'apiKey':'API_KEY'
+};
+
+fetch('/api/v1/contacts/folders/lists',
+{
+  method: 'GET',
+
+  headers: headers
+})
+.then(function(res) {
+    return res.json();
+}).then(function(body) {
+    console.log(body);
+});
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/contacts/folders/lists', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/contacts/folders/lists', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/contacts/folders/lists", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
+
+```
+
+`GET /api/v1/contacts/folders/lists`
+
+Get folders lists
+
+<h3 id="get-folders-lists-responses">Responses</h3>
+
+|Status|Meaning|Description|Schema|
+|---|---|---|---|
+|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
+
+<aside class="warning">
+To perform this operation, you must be authenticated by means of one of the following methods:
+apiKey
 </aside>
 
 <h1 id="getprospect-api-companies">Companies</h1>
@@ -1979,10 +3571,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/companies/company \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/companies/company',
@@ -1996,6 +3595,74 @@ fetch('/api/v1/companies/company',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/companies/company', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/companies/company', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/companies/company", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -2020,7 +3687,7 @@ Return all companies for the current user
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Create company
@@ -2028,6 +3695,14 @@ bearer
 <a id="opIdCompanyController_create"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X POST /api/v1/companies/company \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -2038,7 +3713,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/companies/company',
@@ -2052,6 +3727,77 @@ fetch('/api/v1/companies/company',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.post('/api/v1/companies/company', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('POST','/api/v1/companies/company', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("POST", "/api/v1/companies/company", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -2084,7 +3830,7 @@ Create a new company
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Search companies
@@ -2093,10 +3839,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/companies/company/search/name \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/companies/company/search/name',
@@ -2110,6 +3863,74 @@ fetch('/api/v1/companies/company/search/name',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/companies/company/search/name', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/companies/company/search/name', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/companies/company/search/name", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -2132,7 +3953,7 @@ Search companies with name
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Get single company
@@ -2141,10 +3962,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X GET /api/v1/companies/company/{companyId} \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/companies/company/{companyId}',
@@ -2158,6 +3986,74 @@ fetch('/api/v1/companies/company/{companyId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.get('/api/v1/companies/company/{companyId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('GET','/api/v1/companies/company/{companyId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("GET", "/api/v1/companies/company/{companyId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -2179,7 +4075,7 @@ Get company by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Update company
@@ -2187,6 +4083,14 @@ bearer
 <a id="opIdCompanyController_update"></a>
 
 > Code samples
+
+```shell
+# You can also use wget
+curl -X PATCH /api/v1/companies/company/{companyId} \
+  -H 'Content-Type: application/json' \
+  -H 'apiKey: API_KEY'
+
+```
 
 ```javascript
 const inputBody = '{
@@ -2197,7 +4101,7 @@ const inputBody = '{
 }';
 const headers = {
   'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/companies/company/{companyId}',
@@ -2211,6 +4115,77 @@ fetch('/api/v1/companies/company/{companyId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'Content-Type': 'application/json',
+  'apiKey': 'API_KEY'
+}
+
+r = requests.patch('/api/v1/companies/company/{companyId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'Content-Type' => 'application/json',
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('PATCH','/api/v1/companies/company/{companyId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "Content-Type": []string{"application/json"},
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("PATCH", "/api/v1/companies/company/{companyId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -2244,7 +4219,7 @@ Update company by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 ## Delete company
@@ -2253,10 +4228,17 @@ bearer
 
 > Code samples
 
+```shell
+# You can also use wget
+curl -X DELETE /api/v1/companies/company/{companyId} \
+  -H 'apiKey: API_KEY'
+
+```
+
 ```javascript
 
 const headers = {
-  'Authorization':'Bearer {access-token}'
+  'apiKey':'API_KEY'
 };
 
 fetch('/api/v1/companies/company/{companyId}',
@@ -2270,6 +4252,74 @@ fetch('/api/v1/companies/company/{companyId}',
 }).then(function(body) {
     console.log(body);
 });
+
+```
+
+```python
+import requests
+headers = {
+  'apiKey': 'API_KEY'
+}
+
+r = requests.delete('/api/v1/companies/company/{companyId}', headers = headers)
+
+print(r.json())
+
+```
+
+```php
+<?php
+
+require 'vendor/autoload.php';
+
+$headers = array(
+    'apiKey' => 'API_KEY',
+);
+
+$client = new \GuzzleHttp\Client();
+
+// Define array of request body.
+$request_body = array();
+
+try {
+    $response = $client->request('DELETE','/api/v1/companies/company/{companyId}', array(
+        'headers' => $headers,
+        'json' => $request_body,
+       )
+    );
+    print_r($response->getBody()->getContents());
+ }
+ catch (\GuzzleHttp\Exception\BadResponseException $e) {
+    // handle exception or api errors.
+    print_r($e->getMessage());
+ }
+
+ // ...
+
+```
+
+```go
+package main
+
+import (
+       "bytes"
+       "net/http"
+)
+
+func main() {
+
+    headers := map[string][]string{
+        "apiKey": []string{"API_KEY"},
+    }
+
+    data := bytes.NewBuffer([]byte{jsonReq})
+    req, err := http.NewRequest("DELETE", "/api/v1/companies/company/{companyId}", data)
+    req.Header = headers
+
+    client := &http.Client{}
+    resp, err := client.Do(req)
+    // ...
+}
 
 ```
 
@@ -2291,1278 +4341,7 @@ Delete company by id
 
 <aside class="warning">
 To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-insights">Insights</h1>
-
-## Create search
-
-<a id="opIdInsightsController_createSearch"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/insights/search',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/insights/search`
-
-Create a search document in MongoDB
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="create-search-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreateSearchDto](#schemacreatesearchdto)|true|none|
-
-<h3 id="create-search-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## InsightsController_getSavedContactByInsightId
-
-<a id="opIdInsightsController_getSavedContactByInsightId"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/insights/search/contact/{insightId}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/insights/search/contact/{insightId}`
-
-<h3 id="insightscontroller_getsavedcontactbyinsightid-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|insightId|path|string|true|none|
-
-<h3 id="insightscontroller_getsavedcontactbyinsightid-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## InsightsController_checkProcessingContacts
-
-<a id="opIdInsightsController_checkProcessingContacts"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/insights/search/check/contacts/{searchId}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/insights/search/check/contacts/{searchId}`
-
-<h3 id="insightscontroller_checkprocessingcontacts-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|searchId|path|string|true|none|
-
-<h3 id="insightscontroller_checkprocessingcontacts-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## InsightsController_getLastThreeContacts
-
-<a id="opIdInsightsController_getLastThreeContacts"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/insights/search/companies/{insightId}/lastContacts',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/insights/search/companies/{insightId}/lastContacts`
-
-<h3 id="insightscontroller_getlastthreecontacts-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|insightId|path|string|true|none|
-
-<h3 id="insightscontroller_getlastthreecontacts-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-import">Import</h1>
-
-## Get all imports
-
-<a id="opIdImportController_getAllImports"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/import',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/import`
-
-Get all imports
-
-<h3 id="get-all-imports-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Start import
-
-<a id="opIdImportController_createImport"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "name": "string",
-  "dataFileUrl": "string",
-  "matchedProperties": [
-    {
-      "source": "string",
-      "getProspect": "string"
-    }
-  ],
-  "source": "contact",
-  "lists": [
-    "string"
-  ],
-  "type": "list_of_enrichment",
-  "useGetProspectId": true,
-  "ignoreDuplicates": true,
-  "sequenceId": "string"
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/import',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/import`
-
-Create a new import task
-
-> Body parameter
-
-```json
-{
-  "name": "string",
-  "dataFileUrl": "string",
-  "matchedProperties": [
-    {
-      "source": "string",
-      "getProspect": "string"
-    }
-  ],
-  "source": "contact",
-  "lists": [
-    "string"
-  ],
-  "type": "list_of_enrichment",
-  "useGetProspectId": true,
-  "ignoreDuplicates": true,
-  "sequenceId": "string"
-}
-```
-
-<h3 id="start-import-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreateImportDto](#schemacreateimportdto)|true|none|
-
-<h3 id="start-import-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## Get import by id
-
-<a id="opIdImportController_findImportById"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/import/{importId}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/import/{importId}`
-
-Get import by id
-
-<h3 id="get-import-by-id-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|importId|path|string|true|none|
-
-<h3 id="get-import-by-id-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-sequences-steps">Sequences Steps</h1>
-
-## SequencesContactsController_createContact
-
-<a id="opIdSequencesContactsController_createContact"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/contacts',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/sequences/contacts`
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="sequencescontactscontroller_createcontact-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreateContactDto](#schemacreatecontactdto)|true|none|
-
-<h3 id="sequencescontactscontroller_createcontact-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesContactsController_findAllSequences
-
-<a id="opIdSequencesContactsController_findAllSequences"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "filters": [
-    {
-      "operator": "string",
-      "property": "string",
-      "value": "string",
-      "included": {
-        "operator": "string",
-        "value": {}
-      }
-    }
-  ],
-  "search": {
-    "value": "string",
-    "properties": [
-      "string"
-    ]
-  }
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/contacts/search',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/sequences/contacts/search`
-
-> Body parameter
-
-```json
-{
-  "filters": [
-    {
-      "operator": "string",
-      "property": "string",
-      "value": "string",
-      "included": {
-        "operator": "string",
-        "value": {}
-      }
-    }
-  ],
-  "search": {
-    "value": "string",
-    "properties": [
-      "string"
-    ]
-  }
-}
-```
-
-<h3 id="sequencescontactscontroller_findallsequences-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[SearchContactsDto](#schemasearchcontactsdto)|true|none|
-
-<h3 id="sequencescontactscontroller_findallsequences-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesStepsController_createStep
-
-<a id="opIdSequencesStepsController_createStep"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/steps',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/sequences/steps`
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="sequencesstepscontroller_createstep-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreateStepDto](#schemacreatestepdto)|true|none|
-
-<h3 id="sequencesstepscontroller_createstep-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesStepsController_updateStep
-
-<a id="opIdSequencesStepsController_updateStep"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/steps/{stepId}',
-{
-  method: 'PUT',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`PUT /api/v1/sequences/steps/{stepId}`
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="sequencesstepscontroller_updatestep-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|stepId|path|string|true|none|
-|body|body|[UpdateStepDto](#schemaupdatestepdto)|true|none|
-
-<h3 id="sequencesstepscontroller_updatestep-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesStepsController_removeStep
-
-<a id="opIdSequencesStepsController_removeStep"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/steps/{stepId}?sequenceId=string',
-{
-  method: 'DELETE',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`DELETE /api/v1/sequences/steps/{stepId}`
-
-<h3 id="sequencesstepscontroller_removestep-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|stepId|path|string|true|none|
-|sequenceId|query|string|true|none|
-
-<h3 id="sequencesstepscontroller_removestep-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-sequences-step-templates">Sequences Step Templates</h1>
-
-## SequencesStepTemplatesController_createTemplate
-
-<a id="opIdSequencesStepTemplatesController_createTemplate"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/templates',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/sequences/templates`
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="sequencessteptemplatescontroller_createtemplate-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreateStepTemplateDto](#schemacreatesteptemplatedto)|true|none|
-
-<h3 id="sequencessteptemplatescontroller_createtemplate-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesStepTemplatesController_getAllTemplates
-
-<a id="opIdSequencesStepTemplatesController_getAllTemplates"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/templates?ownerId=string&name=string',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/sequences/templates`
-
-<h3 id="sequencessteptemplatescontroller_getalltemplates-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|ownerId|query|string|true|none|
-|name|query|string|true|none|
-
-<h3 id="sequencessteptemplatescontroller_getalltemplates-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-sequences">Sequences</h1>
-
-## SequencesController_createSequence
-
-<a id="opIdSequencesController_createSequence"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences',
-{
-  method: 'POST',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/sequences`
-
-<h3 id="sequencescontroller_createsequence-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesController_findAllSequences
-
-<a id="opIdSequencesController_findAllSequences"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences?status=string&ownerId=string&name=string',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/sequences`
-
-<h3 id="sequencescontroller_findallsequences-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|status|query|string|true|none|
-|ownerId|query|string|true|none|
-|name|query|string|true|none|
-
-<h3 id="sequencescontroller_findallsequences-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesController_deleteSequenceByIds
-
-<a id="opIdSequencesController_deleteSequenceByIds"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences',
-{
-  method: 'DELETE',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`DELETE /api/v1/sequences`
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="sequencescontroller_deletesequencebyids-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[DeleteSequencesDto](#schemadeletesequencesdto)|true|none|
-
-<h3 id="sequencescontroller_deletesequencebyids-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesController_findSequenceById
-
-<a id="opIdSequencesController_findSequenceById"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/{sequenceId}',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/sequences/{sequenceId}`
-
-<h3 id="sequencescontroller_findsequencebyid-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|sequenceId|path|string|true|none|
-
-<h3 id="sequencescontroller_findsequencebyid-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesController_updateSequenceById
-
-<a id="opIdSequencesController_updateSequenceById"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/{sequenceId}',
-{
-  method: 'PUT',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`PUT /api/v1/sequences/{sequenceId}`
-
-<h3 id="sequencescontroller_updatesequencebyid-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|sequenceId|path|string|true|none|
-
-<h3 id="sequencescontroller_updatesequencebyid-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## SequencesController_getAnalyticsOfSequences
-
-<a id="opIdSequencesController_getAnalyticsOfSequences"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/sequences/analytics',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/sequences/analytics`
-
-> Body parameter
-
-```json
-{}
-```
-
-<h3 id="sequencescontroller_getanalyticsofsequences-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[GetSequenceAnalyticsDto](#schemagetsequenceanalyticsdto)|true|none|
-
-<h3 id="sequencescontroller_getanalyticsofsequences-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-export">Export</h1>
-
-## Create export
-
-<a id="opIdExportController_create"></a>
-
-> Code samples
-
-```javascript
-const inputBody = '{
-  "name": "string",
-  "includeProperties": "all",
-  "fileFormat": "xlsx",
-  "filters": [
-    {
-      "operator": "string",
-      "property": "string",
-      "value": "string",
-      "included": {
-        "operator": "string",
-        "value": {}
-      }
-    }
-  ],
-  "sourceType": "contact",
-  "sort": {
-    "column": "string",
-    "order": "ASC"
-  },
-  "itemIds": [
-    "string"
-  ]
-}';
-const headers = {
-  'Content-Type':'application/json',
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/export',
-{
-  method: 'POST',
-  body: inputBody,
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/export`
-
-Create new export
-
-> Body parameter
-
-```json
-{
-  "name": "string",
-  "includeProperties": "all",
-  "fileFormat": "xlsx",
-  "filters": [
-    {
-      "operator": "string",
-      "property": "string",
-      "value": "string",
-      "included": {
-        "operator": "string",
-        "value": {}
-      }
-    }
-  ],
-  "sourceType": "contact",
-  "sort": {
-    "column": "string",
-    "order": "ASC"
-  },
-  "itemIds": [
-    "string"
-  ]
-}
-```
-
-<h3 id="create-export-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|body|body|[CreateExportDto](#schemacreateexportdto)|true|none|
-
-<h3 id="create-export-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-<h1 id="getprospect-api-applications">Applications</h1>
-
-## ApplicationControllers_createApplication
-
-<a id="opIdApplicationControllers_createApplication"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/applications',
-{
-  method: 'POST',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`POST /api/v1/applications`
-
-<h3 id="applicationcontrollers_createapplication-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|201|[Created](https://tools.ietf.org/html/rfc7231#section-6.3.2)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## ApplicationControllers_getApplications
-
-<a id="opIdApplicationControllers_getApplications"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/applications',
-{
-  method: 'GET',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`GET /api/v1/applications`
-
-<h3 id="applicationcontrollers_getapplications-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
-</aside>
-
-## ApplicationControllers_deleteApplication
-
-<a id="opIdApplicationControllers_deleteApplication"></a>
-
-> Code samples
-
-```javascript
-
-const headers = {
-  'Authorization':'Bearer {access-token}'
-};
-
-fetch('/api/v1/applications/{applicationId}',
-{
-  method: 'DELETE',
-
-  headers: headers
-})
-.then(function(res) {
-    return res.json();
-}).then(function(body) {
-    console.log(body);
-});
-
-```
-
-`DELETE /api/v1/applications/{applicationId}`
-
-<h3 id="applicationcontrollers_deleteapplication-parameters">Parameters</h3>
-
-|Name|In|Type|Required|Description|
-|---|---|---|---|---|
-|applicationId|path|string|true|none|
-
-<h3 id="applicationcontrollers_deleteapplication-responses">Responses</h3>
-
-|Status|Meaning|Description|Schema|
-|---|---|---|---|
-|200|[OK](https://tools.ietf.org/html/rfc7231#section-6.3.1)|none|None|
-
-<aside class="warning">
-To perform this operation, you must be authenticated by means of one of the following methods:
-bearer
+apiKey
 </aside>
 
 # Schemas
@@ -3691,160 +4470,6 @@ bearer
 |---|---|---|---|---|
 |withParentFolder|boolean|true|none|none|
 
-<h2 id="tocS_PropertyOptions">PropertyOptions</h2>
-<!-- backwards compatibility -->
-<a id="schemapropertyoptions"></a>
-<a id="schema_PropertyOptions"></a>
-<a id="tocSpropertyoptions"></a>
-<a id="tocspropertyoptions"></a>
-
-```json
-{
-  "description": "string",
-  "label": "string",
-  "hidden": true,
-  "value": "string"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|description|string|true|none|none|
-|label|string|true|none|none|
-|hidden|boolean|true|none|none|
-|value|string|true|none|none|
-
-<h2 id="tocS_CreatePropertyDTO">CreatePropertyDTO</h2>
-<!-- backwards compatibility -->
-<a id="schemacreatepropertydto"></a>
-<a id="schema_CreatePropertyDTO"></a>
-<a id="tocScreatepropertydto"></a>
-<a id="tocscreatepropertydto"></a>
-
-```json
-{
-  "sourceType": "contact",
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "required": true
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|sourceType|string|true|none|none|
-|label|string|true|none|none|
-|description|string|true|none|none|
-|group|string|true|none|none|
-|fieldType|string|true|none|none|
-|options|[[PropertyOptions](#schemapropertyoptions)]|true|none|none|
-|required|boolean|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|sourceType|contact|
-|sourceType|company|
-|fieldType|textarea|
-|fieldType|text|
-|fieldType|date|
-|fieldType|number|
-|fieldType|select|
-|fieldType|checkbox|
-|fieldType|booleancheckbox|
-|fieldType|url|
-
-<h2 id="tocS_UpdatePropertyDto">UpdatePropertyDto</h2>
-<!-- backwards compatibility -->
-<a id="schemaupdatepropertydto"></a>
-<a id="schema_UpdatePropertyDto"></a>
-<a id="tocSupdatepropertydto"></a>
-<a id="tocsupdatepropertydto"></a>
-
-```json
-{
-  "label": "string",
-  "description": "string",
-  "group": "string",
-  "fieldType": "textarea",
-  "options": [
-    {
-      "description": "string",
-      "label": "string",
-      "hidden": true,
-      "value": "string"
-    }
-  ],
-  "sourceType": "contacts"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|label|string|true|none|none|
-|description|string|true|none|none|
-|group|string|true|none|none|
-|fieldType|string|true|none|none|
-|options|[[PropertyOptions](#schemapropertyoptions)]|true|none|none|
-|sourceType|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|fieldType|textarea|
-|fieldType|text|
-|fieldType|date|
-|fieldType|number|
-|fieldType|select|
-|fieldType|checkbox|
-|fieldType|booleancheckbox|
-|fieldType|url|
-|sourceType|contacts|
-|sourceType|companies|
-
-<h2 id="tocS_CreatePropertyGroupDto">CreatePropertyGroupDto</h2>
-<!-- backwards compatibility -->
-<a id="schemacreatepropertygroupdto"></a>
-<a id="schema_CreatePropertyGroupDto"></a>
-<a id="tocScreatepropertygroupdto"></a>
-<a id="tocscreatepropertygroupdto"></a>
-
-```json
-{
-  "name": "string",
-  "sourceType": "string"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|name|string|true|none|none|
-|sourceType|string|true|none|none|
-
 <h2 id="tocS_PropertyItem">PropertyItem</h2>
 <!-- backwards compatibility -->
 <a id="schemapropertyitem"></a>
@@ -3875,13 +4500,26 @@ bearer
 <a id="tocscreatecontactdto"></a>
 
 ```json
-{}
+{
+  "properties": [
+    {
+      "property": "string",
+      "value": {}
+    }
+  ],
+  "listRelations": [
+    "string"
+  ]
+}
 
 ```
 
 ### Properties
 
-*None*
+|Name|Type|Required|Restrictions|Description|
+|---|---|---|---|---|
+|properties|[[PropertyItem](#schemapropertyitem)]|true|none|none|
+|listRelations|[string]|true|none|none|
 
 <h2 id="tocS_Included">Included</h2>
 <!-- backwards compatibility -->
@@ -3983,7 +4621,8 @@ bearer
     "properties": [
       "string"
     ]
-  }
+  },
+  "includeRelations": true
 }
 
 ```
@@ -3994,6 +4633,7 @@ bearer
 |---|---|---|---|---|
 |filters|[[FilterItem](#schemafilteritem)]|true|none|none|
 |search|[SearchItem](#schemasearchitem)|true|none|none|
+|includeRelations|boolean|true|none|none|
 
 <h2 id="tocS_CompanyRelationsDto">CompanyRelationsDto</h2>
 <!-- backwards compatibility -->
@@ -4136,6 +4776,22 @@ bearer
 |---|---|---|---|---|
 |listsIds|[string]|true|none|none|
 
+<h2 id="tocS_AddListsWithFoldersDto">AddListsWithFoldersDto</h2>
+<!-- backwards compatibility -->
+<a id="schemaaddlistswithfoldersdto"></a>
+<a id="schema_AddListsWithFoldersDto"></a>
+<a id="tocSaddlistswithfoldersdto"></a>
+<a id="tocsaddlistswithfoldersdto"></a>
+
+```json
+{}
+
+```
+
+### Properties
+
+*None*
+
 <h2 id="tocS_CreateCompanyDto">CreateCompanyDto</h2>
 <!-- backwards compatibility -->
 <a id="schemacreatecompanydto"></a>
@@ -4158,263 +4814,4 @@ bearer
 |Name|Type|Required|Restrictions|Description|
 |---|---|---|---|---|
 |properties|[PropertyItem](#schemapropertyitem)|true|none|none|
-
-<h2 id="tocS_CreateSearchDto">CreateSearchDto</h2>
-<!-- backwards compatibility -->
-<a id="schemacreatesearchdto"></a>
-<a id="schema_CreateSearchDto"></a>
-<a id="tocScreatesearchdto"></a>
-<a id="tocscreatesearchdto"></a>
-
-```json
-{}
-
-```
-
-### Properties
-
-*None*
-
-<h2 id="tocS_MatchedProperty">MatchedProperty</h2>
-<!-- backwards compatibility -->
-<a id="schemamatchedproperty"></a>
-<a id="schema_MatchedProperty"></a>
-<a id="tocSmatchedproperty"></a>
-<a id="tocsmatchedproperty"></a>
-
-```json
-{
-  "source": "string",
-  "getProspect": "string"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|source|string|true|none|none|
-|getProspect|string|true|none|none|
-
-<h2 id="tocS_CreateImportDto">CreateImportDto</h2>
-<!-- backwards compatibility -->
-<a id="schemacreateimportdto"></a>
-<a id="schema_CreateImportDto"></a>
-<a id="tocScreateimportdto"></a>
-<a id="tocscreateimportdto"></a>
-
-```json
-{
-  "name": "string",
-  "dataFileUrl": "string",
-  "matchedProperties": [
-    {
-      "source": "string",
-      "getProspect": "string"
-    }
-  ],
-  "source": "contact",
-  "lists": [
-    "string"
-  ],
-  "type": "list_of_enrichment",
-  "useGetProspectId": true,
-  "ignoreDuplicates": true,
-  "sequenceId": "string"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|name|string|true|none|none|
-|dataFileUrl|string|true|none|none|
-|matchedProperties|[[MatchedProperty](#schemamatchedproperty)]|true|none|none|
-|source|string|true|none|none|
-|lists|[string]|true|none|none|
-|type|string|true|none|none|
-|useGetProspectId|boolean|true|none|none|
-|ignoreDuplicates|boolean|true|none|none|
-|sequenceId|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|source|contact|
-|source|company|
-|type|list_of_enrichment|
-|type|existing_list|
-|type|ignore_list|
-
-<h2 id="tocS_CreateStepDto">CreateStepDto</h2>
-<!-- backwards compatibility -->
-<a id="schemacreatestepdto"></a>
-<a id="schema_CreateStepDto"></a>
-<a id="tocScreatestepdto"></a>
-<a id="tocscreatestepdto"></a>
-
-```json
-{}
-
-```
-
-### Properties
-
-*None*
-
-<h2 id="tocS_UpdateStepDto">UpdateStepDto</h2>
-<!-- backwards compatibility -->
-<a id="schemaupdatestepdto"></a>
-<a id="schema_UpdateStepDto"></a>
-<a id="tocSupdatestepdto"></a>
-<a id="tocsupdatestepdto"></a>
-
-```json
-{}
-
-```
-
-### Properties
-
-*None*
-
-<h2 id="tocS_CreateStepTemplateDto">CreateStepTemplateDto</h2>
-<!-- backwards compatibility -->
-<a id="schemacreatesteptemplatedto"></a>
-<a id="schema_CreateStepTemplateDto"></a>
-<a id="tocScreatesteptemplatedto"></a>
-<a id="tocscreatesteptemplatedto"></a>
-
-```json
-{}
-
-```
-
-### Properties
-
-*None*
-
-<h2 id="tocS_GetSequenceAnalyticsDto">GetSequenceAnalyticsDto</h2>
-<!-- backwards compatibility -->
-<a id="schemagetsequenceanalyticsdto"></a>
-<a id="schema_GetSequenceAnalyticsDto"></a>
-<a id="tocSgetsequenceanalyticsdto"></a>
-<a id="tocsgetsequenceanalyticsdto"></a>
-
-```json
-{}
-
-```
-
-### Properties
-
-*None*
-
-<h2 id="tocS_DeleteSequencesDto">DeleteSequencesDto</h2>
-<!-- backwards compatibility -->
-<a id="schemadeletesequencesdto"></a>
-<a id="schema_DeleteSequencesDto"></a>
-<a id="tocSdeletesequencesdto"></a>
-<a id="tocsdeletesequencesdto"></a>
-
-```json
-{}
-
-```
-
-### Properties
-
-*None*
-
-<h2 id="tocS_ExportSortDTO">ExportSortDTO</h2>
-<!-- backwards compatibility -->
-<a id="schemaexportsortdto"></a>
-<a id="schema_ExportSortDTO"></a>
-<a id="tocSexportsortdto"></a>
-<a id="tocsexportsortdto"></a>
-
-```json
-{
-  "column": "string",
-  "order": "ASC"
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|column|string|true|none|none|
-|order|string|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|order|ASC|
-|order|DESC|
-
-<h2 id="tocS_CreateExportDto">CreateExportDto</h2>
-<!-- backwards compatibility -->
-<a id="schemacreateexportdto"></a>
-<a id="schema_CreateExportDto"></a>
-<a id="tocScreateexportdto"></a>
-<a id="tocscreateexportdto"></a>
-
-```json
-{
-  "name": "string",
-  "includeProperties": "all",
-  "fileFormat": "xlsx",
-  "filters": [
-    {
-      "operator": "string",
-      "property": "string",
-      "value": "string",
-      "included": {
-        "operator": "string",
-        "value": {}
-      }
-    }
-  ],
-  "sourceType": "contact",
-  "sort": {
-    "column": "string",
-    "order": "ASC"
-  },
-  "itemIds": [
-    "string"
-  ]
-}
-
-```
-
-### Properties
-
-|Name|Type|Required|Restrictions|Description|
-|---|---|---|---|---|
-|name|string|true|none|none|
-|includeProperties|string|true|none|none|
-|fileFormat|string|true|none|none|
-|filters|[[FilterItem](#schemafilteritem)]|true|none|none|
-|sourceType|string|true|none|none|
-|sort|[ExportSortDTO](#schemaexportsortdto)|true|none|none|
-|itemIds|[string]|true|none|none|
-
-#### Enumerated Values
-
-|Property|Value|
-|---|---|
-|includeProperties|all|
-|includeProperties|columns_only|
-|includeProperties|custom|
-|fileFormat|xlsx|
-|fileFormat|csv|
-|sourceType|contact|
-|sourceType|company|
 

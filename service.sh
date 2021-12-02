@@ -26,7 +26,7 @@ case "$1" in
         docker-compose build && GETPROSPECT_ENV=build docker-compose up -d --remove-orphans
         ;;
     logs)
-        docker-compose logs --tail 30 -f slate_slate_1
+        docker-compose logs --tail 30 -f doc
         ;;
     stop)
         docker-compose stop
