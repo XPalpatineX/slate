@@ -75,7 +75,7 @@ html, body {
   .logo {
     display: block;
     max-width: 100%;
-    margin-bottom: $logo-margin;
+    margin: $logo-margin;
   }
 
   &>.search {
@@ -472,6 +472,7 @@ html, body {
 
     &.warning {
       background-color: $aside-warning-bg;
+      display: none;
     }
 
     &.success {

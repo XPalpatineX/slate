@@ -1,0 +1,1582 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+  "title": "GetProspect API",
+  "description": "GetProspect API reference v1",
+  "version": "1.0",
+  "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+  "securitySchemes": {
+  "apiKey": {
+  "type": "apiKey",
+  "in": "header",
+  "name": "apiKey"
+  }
+  },
+  "schemas": {
+  "SearchListsCountDto": {
+  "type": "object",
+  "properties": {}
+  },
+  "CreateListDto": {
+  "type": "object",
+  "properties": {
+  "name": {
+  "type": "string"
+  }
+  },
+  "required": [
+  "name"
+  ]
+  },
+  "UpdateListDto": {
+  "type": "object",
+  "properties": {
+  "name": {
+  "type": "string"
+  }
+  },
+  "required": [
+  "name"
+  ]
+  },
+  "UpdateListStatusDto": {
+  "type": "object",
+  "properties": {
+  "listsIds": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  },
+  "updateContactsStatus": {
+  "type": "boolean"
+  },
+  "operationType": {
+  "type": "string"
+  }
+  },
+  "required": [
+  "listsIds",
+  "updateContactsStatus",
+  "operationType"
+  ]
+  },
+  "AddContactsDto": {
+  "type": "object",
+  "properties": {
+  "contactsIds": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  }
+  },
+  "required": [
+  "contactsIds"
+  ]
+  },
+  "SearchListsDto": {
+  "type": "object",
+  "properties": {
+  "withParentFolder": {
+  "type": "boolean"
+  }
+  },
+  "required": [
+  "withParentFolder"
+  ]
+  },
+  "PropertyItem": {
+  "type": "object",
+  "properties": {
+  "property": {
+  "type": "string"
+  },
+  "value": {
+  "type": "object"
+  }
+  },
+  "required": [
+  "property",
+  "value"
+  ]
+  },
+  "CreateContactDto": {
+  "type": "object",
+  "properties": {
+  "properties": {
+  "type": "array",
+  "items": {
+  "$ref": "#/components/schemas/PropertyItem"
+  }
+  },
+  "listRelations": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  }
+  },
+  "required": [
+  "properties",
+  "listRelations"
+  ]
+  },
+  "Included": {
+  "type": "object",
+  "properties": {
+  "operator": {
+  "type": "string"
+  },
+  "value": {
+  "type": "object"
+  }
+  },
+  "required": [
+  "operator",
+  "value"
+  ]
+  },
+  "FilterItem": {
+  "type": "object",
+  "properties": {
+  "operator": {
+  "type": "string"
+  },
+  "property": {
+  "type": "string"
+  },
+  "value": {
+  "type": "string"
+  },
+  "included": {
+  "$ref": "#/components/schemas/Included"
+  }
+  },
+  "required": [
+  "operator",
+  "property",
+  "value",
+  "included"
+  ]
+  },
+  "SearchItem": {
+  "type": "object",
+  "properties": {
+  "value": {
+  "type": "string"
+  },
+  "properties": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  }
+  },
+  "required": [
+  "value",
+  "properties"
+  ]
+  },
+  "SearchContactsDto": {
+  "type": "object",
+  "properties": {
+  "filters": {
+  "type": "array",
+  "items": {
+  "$ref": "#/components/schemas/FilterItem"
+  }
+  },
+  "search": {
+  "$ref": "#/components/schemas/SearchItem"
+  },
+  "includeRelations": {
+  "type": "boolean"
+  }
+  },
+  "required": [
+  "filters",
+  "search",
+  "includeRelations"
+  ]
+  },
+  "CompanyRelationsDto": {
+  "type": "object",
+  "properties": {
+  "companyId": {
+  "type": "string"
+  },
+  "email": {
+  "type": "string"
+  },
+  "status": {
+  "type": "string"
+  },
+  "position": {
+  "type": "string"
+  }
+  },
+  "required": [
+  "companyId"
+  ]
+  },
+  "AddCompaniesRelationsDto": {
+  "type": "object",
+  "properties": {
+  "companies": {
+  "type": "array",
+  "items": {
+  "$ref": "#/components/schemas/CompanyRelationsDto"
+  }
+  }
+  },
+  "required": [
+  "companies"
+  ]
+  },
+  "CreateFolderDto": {
+  "type": "object",
+  "properties": {
+  "name": {
+  "type": "string"
+  },
+  "parent": {
+  "type": "string"
+  }
+  },
+  "required": [
+  "name",
+  "parent"
+  ]
+  },
+  "DeleteFolderDto": {
+  "type": "object",
+  "properties": {
+  "folderIds": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  }
+  },
+  "required": [
+  "folderIds"
+  ]
+  },
+  "UpdateFolderDto": {
+  "type": "object",
+  "properties": {
+  "name": {
+  "type": "string"
+  },
+  "parent": {
+  "type": "string"
+  }
+  },
+  "required": [
+  "name",
+  "parent"
+  ]
+  },
+  "AddListsDto": {
+  "type": "object",
+  "properties": {
+  "listsIds": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  }
+  },
+  "required": [
+  "listsIds"
+  ]
+  },
+  "AddListsWithFoldersDto": {
+  "type": "object",
+  "properties": {}
+  },
+  "CreateCompanyDto": {
+  "type": "object",
+  "properties": {
+  "properties": {
+  "$ref": "#/components/schemas/PropertyItem"
+  }
+  },
+  "required": [
+  "properties"
+  ]
+  }
+  }
+  },
+  "paths": {
+  "/api/v1/contacts/lists": {
+  "get": {
+  "operationId": "ListController_getAllLists",
+  "summary": "Get all lists",
+  "description": "Get all contacts lists",
+  "parameters": [],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "post": {
+  "operationId": "ListController_createList",
+  "summary": "Create new list",
+  "description": "Add new contact list",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/CreateListDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "patch": {
+  "operationId": "ListController_updateListsStatuses",
+  "summary": "Update lists deleted status",
+  "description": "Update multiple lists",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/UpdateListStatusDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "delete": {
+  "operationId": "ListController_deleteLists",
+  "summary": "Permanently delete lists",
+  "description": "Permanently delete multiple lists",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "type": "array",
+  "items": {
+  "type": "string"
+  }
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/lists-sizes": {
+  "post": {
+  "operationId": "ListController_getListsCount",
+  "summary": "Get count",
+  "description": "Get lists count dy list id",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/SearchListsCountDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/{listId}": {
+  "patch": {
+  "operationId": "ListController_updateList",
+  "summary": "Update list",
+  "description": "Update list by id",
+  "parameters": [
+  {
+  "name": "listId",
+  "required": true,
+  "in": "path",
+  "description": "List id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/UpdateListDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/{list}/add": {
+  "post": {
+  "operationId": "ListController_addContactsToList",
+  "summary": "Add contacts to list",
+  "description": "Save new contacts to list",
+  "parameters": [
+  {
+  "name": "list",
+  "required": true,
+  "in": "path",
+  "description": "List id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/AddContactsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/{list}/contacts/search": {
+  "get": {
+  "operationId": "ListController_getListContacts",
+  "summary": "Search contacts related to list",
+  "description": "Search contacts by filter related to list",
+  "parameters": [
+  {
+  "name": "list",
+  "required": true,
+  "in": "path",
+  "description": "list id",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "order",
+  "required": false,
+  "in": "query",
+  "description": "Should be ASC or DESC",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "sort",
+  "required": false,
+  "in": "query",
+  "description": "Sort field",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "pageNumber",
+  "required": false,
+  "in": "query",
+  "description": "Page number",
+  "schema": {
+  "type": "number"
+  }
+  },
+  {
+  "name": "pageSize",
+  "required": false,
+  "in": "query",
+  "description": "Page size",
+  "schema": {
+  "type": "number"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/tree": {
+  "get": {
+  "operationId": "ListController_getListsTree",
+  "summary": "Get list tree",
+  "description": "Get all lists tree",
+  "parameters": [],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/paginated": {
+  "get": {
+  "operationId": "ListController_getPaginatedLists",
+  "summary": "Get paginated lists results",
+  "description": "Get paginated lists results",
+  "parameters": [
+  {
+  "name": "order",
+  "required": false,
+  "in": "query",
+  "description": "Should be ASC or DESC",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "sort",
+  "required": false,
+  "in": "query",
+  "description": "Sort field",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "pageNumber",
+  "required": false,
+  "in": "query",
+  "description": "Page number",
+  "schema": {
+  "type": "number"
+  }
+  },
+  {
+  "name": "pageSize",
+  "required": false,
+  "in": "query",
+  "description": "Page size",
+  "schema": {
+  "type": "number"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/lists/search": {
+  "post": {
+  "operationId": "ListController_search",
+  "summary": "Search lists",
+  "description": "Search lists by search type",
+  "parameters": [
+  {
+  "name": "order",
+  "required": false,
+  "in": "query",
+  "description": "Should be ASC or DESC",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "sort",
+  "required": false,
+  "in": "query",
+  "description": "Sort field",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "pageNumber",
+  "required": false,
+  "in": "query",
+  "description": "Page number",
+  "schema": {
+  "type": "number"
+  }
+  },
+  {
+  "name": "pageSize",
+  "required": false,
+  "in": "query",
+  "description": "Page size",
+  "schema": {
+  "type": "number"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/SearchListsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Lists"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/contact": {
+  "post": {
+  "operationId": "ContactController_create",
+  "summary": "Create contact",
+  "description": "Create new contact",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/CreateContactDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/contact/{contactId}": {
+  "get": {
+  "operationId": "ContactController_getContact",
+  "summary": "Get single contact",
+  "description": "Get contact by id",
+  "parameters": [
+  {
+  "name": "contactId",
+  "required": true,
+  "in": "path",
+  "description": "Contact id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "patch": {
+  "operationId": "ContactController_update",
+  "summary": "Update contact",
+  "description": "Update contact by id",
+  "parameters": [
+  {
+  "name": "contactId",
+  "required": true,
+  "in": "path",
+  "description": "Contact id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/CreateContactDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "delete": {
+  "operationId": "ContactController_delete",
+  "summary": "Delete contact",
+  "description": "Delete contact by id",
+  "parameters": [
+  {
+  "name": "contactId",
+  "required": true,
+  "in": "path",
+  "description": "Contact id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/contact/search": {
+  "post": {
+  "operationId": "ContactController_search",
+  "summary": "Search contacts",
+  "description": "Search contacts by filter",
+  "parameters": [
+  {
+  "name": "order",
+  "required": false,
+  "in": "query",
+  "description": "Should be ASC or DESC",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "sort",
+  "required": false,
+  "in": "query",
+  "description": "Sort field",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "pageNumber",
+  "required": false,
+  "in": "query",
+  "description": "Page number",
+  "schema": {
+  "type": "number"
+  }
+  },
+  {
+  "name": "pageSize",
+  "required": false,
+  "in": "query",
+  "description": "Page size",
+  "schema": {
+  "type": "number"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/SearchContactsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/contact/search/count": {
+  "post": {
+  "operationId": "ContactController_searchCount",
+  "summary": "Search contacts",
+  "description": "Search contacts by filter",
+  "parameters": [
+  {
+  "name": "order",
+  "required": false,
+  "in": "query",
+  "description": "Should be ASC or DESC",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "sort",
+  "required": false,
+  "in": "query",
+  "description": "Sort field",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "pageNumber",
+  "required": false,
+  "in": "query",
+  "description": "Page number",
+  "schema": {
+  "type": "number"
+  }
+  },
+  {
+  "name": "pageSize",
+  "required": false,
+  "in": "query",
+  "description": "Page size",
+  "schema": {
+  "type": "number"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/SearchContactsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/contact/{contactId}/companies": {
+  "post": {
+  "operationId": "ContactController_addCompaniesToContact",
+  "summary": "Add companies to contact",
+  "description": "Create a new contact-company relations",
+  "parameters": [
+  {
+  "name": "contactId",
+  "required": true,
+  "in": "query",
+  "description": "Contact id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/AddCompaniesRelationsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Contacts"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/folders": {
+  "post": {
+  "operationId": "FolderController_create",
+  "summary": "Create list folder",
+  "description": "Add new folder",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/CreateFolderDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "delete": {
+  "operationId": "FolderController_delete",
+  "summary": "Delete folders",
+  "description": "Delete multiple folders",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/DeleteFolderDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/folders/{folderId}": {
+  "patch": {
+  "operationId": "FolderController_updateFolder",
+  "summary": "Update folder",
+  "description": "Update folder by id",
+  "parameters": [
+  {
+  "name": "folderId",
+  "required": true,
+  "in": "path",
+  "description": "Folder id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/UpdateFolderDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/folders/tree": {
+  "get": {
+  "operationId": "FolderController_getFoldersTree",
+  "summary": "Get folders tree",
+  "description": "Get folders tree",
+  "parameters": [],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/folders/{folderId}/lists": {
+  "post": {
+  "operationId": "FolderController_addList",
+  "summary": "Move lists to folder",
+  "description": "Move lists to folder",
+  "parameters": [
+  {
+  "name": "folderId",
+  "required": true,
+  "in": "path",
+  "description": "Folder id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/AddListsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "get": {
+  "operationId": "FolderController_getFolderLists",
+  "summary": "Get folder lists",
+  "description": "Retrive all lists related to folder",
+  "parameters": [
+  {
+  "name": "folderId",
+  "required": true,
+  "in": "path",
+  "description": "Folder id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "delete": {
+  "operationId": "FolderController_removeListsFromFolder",
+  "summary": "Remove lists from folder",
+  "description": "Remove lists from folder",
+  "parameters": [
+  {
+  "name": "folderId",
+  "required": true,
+  "in": "path",
+  "description": "Folder id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/AddListsDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/folders/{folderId}/all": {
+  "post": {
+  "operationId": "FolderController_addListsWithFolders",
+  "summary": "Move lists with folders to folder",
+  "description": "Move lists with folders to folder",
+  "parameters": [
+  {
+  "name": "folderId",
+  "required": true,
+  "in": "path",
+  "description": "Folder id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/AddListsWithFoldersDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/contacts/folders/lists": {
+  "get": {
+  "operationId": "FolderController_getFoldersLists",
+  "summary": "Get folders lists",
+  "description": "Get folders lists",
+  "parameters": [],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Folders"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/companies/company": {
+  "get": {
+  "operationId": "CompanyController_findAll",
+  "summary": "Get all companies",
+  "description": "Return all companies for the current user",
+  "parameters": [
+  {
+  "name": "order",
+  "required": false,
+  "in": "query",
+  "description": "Should be ASC or DESC",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "sort",
+  "required": false,
+  "in": "query",
+  "description": "Sort field",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "pageNumber",
+  "required": false,
+  "in": "query",
+  "description": "Page number",
+  "schema": {
+  "type": "number"
+  }
+  },
+  {
+  "name": "pageSize",
+  "required": false,
+  "in": "query",
+  "description": "Page size",
+  "schema": {
+  "type": "number"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Companies"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "post": {
+  "operationId": "CompanyController_create",
+  "summary": "Create company",
+  "description": "Create a new company",
+  "parameters": [],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/CreateCompanyDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "201": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Companies"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/companies/company/search/name": {
+  "get": {
+  "operationId": "CompanyController_findCompanyWithName",
+  "summary": "Search companies",
+  "description": "Search companies with name",
+  "parameters": [
+  {
+  "name": "name",
+  "required": false,
+  "in": "query",
+  "description": "Company name string",
+  "schema": {
+  "type": "string"
+  }
+  },
+  {
+  "name": "limit",
+  "required": false,
+  "in": "query",
+  "description": "Query limit",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Companies"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  },
+  "/api/v1/companies/company/{companyId}": {
+  "get": {
+  "operationId": "CompanyController_getCompany",
+  "summary": "Get single company",
+  "description": "Get company by id",
+  "parameters": [
+  {
+  "name": "companyId",
+  "required": true,
+  "in": "path",
+  "description": "Company id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Companies"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "patch": {
+  "operationId": "CompanyController_update",
+  "summary": "Update company",
+  "description": "Update company by id",
+  "parameters": [
+  {
+  "name": "companyId",
+  "required": true,
+  "in": "path",
+  "description": "Company id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "requestBody": {
+  "required": true,
+  "content": {
+  "application/json": {
+  "schema": {
+  "$ref": "#/components/schemas/CreateCompanyDto"
+  }
+  }
+  }
+  },
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Companies"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  },
+  "delete": {
+  "operationId": "CompanyController_delete",
+  "summary": "Delete company",
+  "description": "Delete company by id",
+  "parameters": [
+  {
+  "name": "companyId",
+  "required": true,
+  "in": "path",
+  "description": "Company id",
+  "schema": {
+  "type": "string"
+  }
+  }
+  ],
+  "responses": {
+  "200": {
+  "description": ""
+  }
+  },
+  "tags": [
+  "Companies"
+  ],
+  "security": [
+  {
+  "apiKey": []
+  }
+  ]
+  }
+  }
+  }
+  }
