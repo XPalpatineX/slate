@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - name: Build project
+        run: ./service.sh production
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
